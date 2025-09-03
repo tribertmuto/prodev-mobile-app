@@ -1,10 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { View } from 'react-native';
 import '../styles/global.css';
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <>
+    <View style={{ flex: 1 }}>
       {children}
-    </>
+    </View>
   );
 }

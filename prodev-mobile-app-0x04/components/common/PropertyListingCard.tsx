@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Property } from '@/interfaces';
 
 interface PropertyListingCardProps extends Omit<Property, 'id'> {
+  id: string;
   onPress?: () => void;
   onFavoritePress?: (id: string) => void;
 }
@@ -24,10 +26,62 @@ const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.9}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.image} />
+        <Image 
+          source={{ uri: image }} 
+          style={styles.image} 
+          resizeMode="cover"
+        />
+        <View style={styles.ratingContainer}>
+          <Ionicons name="star" size={14} color="#FFC107" />
+          <Text style={styles.ratingText}>{rating.toFixed(1)}</Text>
+        </View>
         <TouchableOpacity 
+          style={styles.favoriteButton} 
+          onPress={handleFavoritePress}
+          activeOpacity={0.8}
+        >
+          <Ionicons 
+            name={isFavorite ? 'heart' : 'heart-outline'} 
+            size={24} 
+            color={isFavorite ? '#FF5A5F' : '#fff'} 
+          />
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.detailsContainer}>
+        <View style={styles.priceContainer}>
+          <Text style={styles.price}>${price.toLocaleString()}</Text>
+          <Text style={styles.perMonth}>/month</Text>
+        </View>
+        
+        <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+          {title}
+        </Text>
+        
+        <View style={styles.addressContainer}>
+          <Ionicons name="location-outline" size={16} color="#666" />
+          <Text style={styles.address} numberOfLines={1} ellipsizeMode="tail">
+            {address}
+          </Text>
+        </View>
+        
+        <View style={styles.featuresContainer}>
+          <View style={styles.feature}>
+            <Ionicons name="bed-outline" size={16} color="#666" />
+            <Text style={styles.featureText}>3 Beds</Text>
+          </View>
+          <View style={styles.feature}>
+            <Ionicons name="water-outline" size={16} color="#666" />
+            <Text style={styles.featureText}>2 Baths</Text>
+          </View>
+          <View style={styles.feature}>
+            <MaterialIcons name="aspect-ratio" size={16} color="#666" />
+            <Text style={styles.featureText}>1200 sqft</Text>
+          </View>
+        </View>
+      </View>
           style={styles.favoriteButton}
           onPress={handleFavoritePress}
         >

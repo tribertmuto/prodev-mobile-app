@@ -10,8 +10,8 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "types": [],
-    "lib": ["es6"],
+    "types": ["react", "react-native"],
+    "lib": ["es6", "dom", "es2017"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
@@ -22,7 +22,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true
   },
   "include": [
     "**/*.ts",
