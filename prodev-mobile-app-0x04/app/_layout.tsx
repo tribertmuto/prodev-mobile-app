@@ -1,12 +1,22 @@
-// This is the root layout for the app
-import { Stack } from 'expo-router';
-
-export default function RootLayout() {
+// Root layout component
+export default function Layout({ children }) {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="join" options={{ headerShown: false }} />
-      <Stack.Screen name="signin" options={{ headerShown: false }} />
-    </Stack>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      margin: 0,
+      padding: 0,
+      fontFamily: 'Arial, sans-serif'
+    }}>
+      {children}
+      <style jsx global>{`
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+        }
+      `}</style>
+    </div>
   );
 }

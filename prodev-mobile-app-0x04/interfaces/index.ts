@@ -1,3 +1,23 @@
+export interface PropertyLocationProps {
+  street: string;
+  city: string;
+  country: string;
+}
+
+export interface PropertyListingProps {
+  propertyName: string;
+  rate: number;
+  currency: string;
+  amount: number;
+  location: PropertyLocationProps;
+  favorite: boolean;
+  image?: string | any; // any is for require() type
+}
+
+export interface PropertyListingListProps {
+  listings: PropertyListingProps[];
+}
+
 export interface Property {
   id: string;
   title: string;
