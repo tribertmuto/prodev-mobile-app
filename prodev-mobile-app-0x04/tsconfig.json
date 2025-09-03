@@ -10,9 +10,19 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "types": ["node"],
-    "lib": ["es2015"],
-    "jsxImportSource": "react"
+    "types": [],
+    "lib": ["es6"],
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "**/*.ts",
