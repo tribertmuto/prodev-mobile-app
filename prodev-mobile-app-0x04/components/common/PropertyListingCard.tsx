@@ -1,53 +1,70 @@
-// Simple property card component for web
-interface PropertyListingProps {
-  propertyName: string;
-  rate: number;
-  currency: string;
-  amount: number;
-  location: {
-    street: string;
-    city: string;
-    country: string;
-  };
-  favorite?: boolean;
-  image: string;
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Property } from '@/interfaces';
+
+interface PropertyListingCardProps extends Omit<Property, 'id'> {
+  onPress?: () => void;
+  onFavoritePress?: (id: string) => void;
 }
 
-export default function PropertyListingCard({
-  propertyName,
-  rate,
-  currency,
-  amount,
-  location,
-  favorite = false,
+const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
+  id,
+  title,
+  price,
+  address,
   image,
-}: PropertyListingProps) {
-  // Simple implementation without state for now
-  const isFavorite = favorite;
-  const toggleFavorite = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    // State update would go here if we had a state management solution
+  rating,
+  isFavorite = false,
+  onPress,
+  onFavoritePress,
+}) => {
+  const handleFavoritePress = (e: any) => {
+    e?.stopPropagation?.();
+    onFavoritePress?.(id);
   };
 
-  // Inline styles for web
-  const styles = {
-    cardContainer: {
-      width: '100%',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      backgroundColor: '#FFF',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      marginBottom: '16px',
-    },
-    imageContainer: {
-      position: 'relative',
-      width: '100%',
-      height: '200px',
-    },
-    image: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
+  return (
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image }} style={styles.image} />
+        <TouchableOpacity 
+          style={styles.favoriteButton}
+          onPress={handleFavoritePress}
+        >
+          <Text style={styles.favoriteIcon}>{isFavorite ? '❤️' : '🤍'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.price}>${price.toLocaleString()}</Text>
+        <Text style={styles.title} numberOfLines={1}>{title}</Text>
+        <Text style={styles.address} numberOfLines={1}>{address}</Text>
+        <View style={styles.ratingContainer}>
+          <Text style={styles.rating}>★ {rating.toFixed(1)}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    overflow: 'hidden',
+  },
+  imageContainer: {
+    position: 'relative',
+    height: 200,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
     },
     overlay: {
       position: 'absolute',
